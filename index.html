@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+
+    <title>Weather App</title>
+  </head>
+  <body>
+        <h1>Weather App</h1>
+        <script>
+            const BASE_URL = "https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&hourly=temperature_2m"
+            fetch(BASE_URL)
+                .then(data =>data.json())
+                .then(json => console.log(json))
+                .catch(error => console.log(error))
+        </script>
+
+  </body>
+</html>
