@@ -1,6 +1,6 @@
 {
-  "homepage": "http://oliviamates.github.io/cs378-p2",
-  "name": "menu-app",
+  "homepage": "http://oliviamates.github.io/cs378-p4",
+  "name": "weather-app",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
