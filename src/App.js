@@ -13,14 +13,14 @@ function App() {
       longitude = -97.7431;
     } else if (city === "Houston") {
       latitude = 29.7601;
-      longitude = -95.3701; 
+      longitude = -95.3701;  
     } else {
       latitude = 52.52;  
       longitude = 13.41;
     }
-
     fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&hourly=temperature_2m&forecast_days=1&timezone=auto&temperature_unit=fahrenheit`)
-    .then(data => setWeatherData(data))
+      .then(response => response.json())
+      .then(data => setWeatherData(data))
       .catch(error => console.error("Error fetching weather data:", error));
   }
 
