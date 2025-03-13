@@ -15,8 +15,8 @@ function App() {
       latitude = 29.7601;
       longitude = -95.3701;  
     } else {
-      latitude = 52.52;  
-      longitude = 13.41;
+      latitude = 32.7767;  
+      longitude = -96.7970;
     }
     fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&hourly=temperature_2m&forecast_days=1&timezone=auto&temperature_unit=fahrenheit`)
       .then(response => response.json())
@@ -29,11 +29,11 @@ function App() {
       <h2>Weather Forecast</h2>
       <button onClick={() => getWeather("Austin")}>Austin</button>
       <button onClick={() => getWeather("Houston")}>Houston</button>
-      <button onClick={() => getWeather("Berlin")}>Berlin</button>
+      <button onClick={() => getWeather("Dallas")}>Dallas</button>
 
       {weatherData ? (
         <div>
-          <p>Temperature: {weatherData.hourly.temperature_2m[0]}°C</p>
+          <p>Temperature: {weatherData.hourly.temperature_2m[0]}°F</p>
         </div>
       ) : (
         <p>Click a city to fetch weather</p>
