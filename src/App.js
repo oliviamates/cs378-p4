@@ -18,29 +18,34 @@ function App() {
       latitude = 32.7767;  
       longitude = -96.7970;
     }
-    fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&hourly=temperature_2m&forecast_days=1&timezone=auto&temperature_unit=fahrenheit`)
+
+    fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&hourly=temperature_2m,time&forecast_days=1&timezone=auto&temperature_unit=fahrenheit`)
       .then(response => response.json())
       .then(data => setWeatherData(data))
       .catch(error => console.error("Error fetching weather data:", error));
   }
 
-  function typedCity(){
-      let name = document.getElementById("city").value;
-      if(name === "Austin" || name === "Houston" || name === "Dallas") {
-        getWeather(name); 
-      }
-      else {
-        fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${name}&count=1&language=en&format=json`)
+  function typedCity() {
+    let name = document.getElementById("city").value;
+
+    if (name === "Austin" || name === "Houston" || name === "Dallas") {
+      getWeather(name);
+    } else {
+      fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${name}&count=1&language=en&format=json`)
         .then(response => response.json())
         .then(data => {
-          let latitude = data.results[0].latitude; 
+          if (!data.results || data.results.length === 0) {
+            throw new Error("City not found");
+          }
+          let latitude = data.results[0].latitude;
           let longitude = data.results[0].longitude;
-          return fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&hourly=temperature_2m&forecast_days=1&timezone=auto&temperature_unit=fahrenheit`)
+
+          return fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&hourly=temperature_2m,time&forecast_days=1&timezone=auto&temperature_unit=fahrenheit`);
         })
-      .then(response => response.json())
-      .then(data => setWeatherData(data))
-      .catch(error => console.error("Error fetching weather data:", error));
-      }
+        .then(response => response.json())
+        .then(data => setWeatherData(data))
+        .catch(error => console.error("Error fetching weather data:", error));
+    }
   }
 
   return (
@@ -49,24 +54,27 @@ function App() {
       <button onClick={() => getWeather("Austin")}>Austin</button>
       <button onClick={() => getWeather("Houston")}>Houston</button>
       <button onClick={() => getWeather("Dallas")}>Dallas</button>
-      <br></br>
-      <input type="text" id="city" name="city"/>
-      <button id = "add" onClick={() => typedCity()}>+</button>
+      <br />
+      <input type="text" id="city" name="city" />
+      <button id="add" onClick={typedCity}>+</button>
 
-      <ul>
-    {weatherData.hourly.temperature_2m.slice(0, 10).map((temp, index) => {
-        let utcTime = new Date(weatherData.hourly.time[index] + "Z"); 
-        let localTime = utcTime.toLocaleTimeString([], { 
-          hour: '2-digit', 
-          minute: '2-digit', 
-          hour12: true 
-        });
+      {}
+      {weatherData && weatherData.hourly ? (
+        <ul> {}
+          {weatherData.hourly.temperature_2m.slice(0, 10).map((temp, index) => {
+            let utcTime = new Date(weatherData.hourly.time[index] + "Z");
+            let localTime = utcTime.toLocaleTimeString([], { 
+              hour: '2-digit', 
+              minute: '2-digit', 
+              hour12: true 
+            });
 
-      return (
-        <li key={index}>{localTime}: {temp}°F</li>
-      );
-    })}
-</ul>
+            return <li key={index}>{localTime}: {temp}°F</li>;
+          })}
+        </ul>
+      ) : (
+        <p>Click a city to load the forecast!</p>
+      )}
     </div>
   );
 }
