@@ -2,7 +2,18 @@
   Style your elements by creating CSS classes here.
   Below, you can see an example of a class called "menu" that changes the color of the text to blue. Modify according to your needs.
 */
+body {
+  background-color: #e0e1dd; 
+}
 
+button {
+  background-color: #778da9; 
+  color: white;
+}
 
+h2 {
+  color: #415a77;
+  text-align: center;
+}
 
 

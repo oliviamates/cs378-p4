@@ -49,6 +49,7 @@ function App() {
       <button onClick={() => getWeather("Austin")}>Austin</button>
       <button onClick={() => getWeather("Houston")}>Houston</button>
       <button onClick={() => getWeather("Dallas")}>Dallas</button>
+      <br></br>
       <input type="text" id="city" name="city"/>
       <button onClick={() => typedCity()}>+</button>
 
