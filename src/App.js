@@ -19,9 +19,11 @@ function App() {
       longitude = -96.7970;
     }
 
-    fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&hourly=temperature_2m,time&forecast_days=1&timezone=auto&temperature_unit=fahrenheit`)
+    fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&hourly=temperature_2m&forecast_days=1&timezone=auto&temperature_unit=fahrenheit`)
       .then(response => response.json())
-      .then(data => setWeatherData(data))
+      .then(data => {
+        setWeatherData(data);
+      })
       .catch(error => console.error("Error fetching weather data:", error));
   }
 
@@ -40,10 +42,12 @@ function App() {
           let latitude = data.results[0].latitude;
           let longitude = data.results[0].longitude;
 
-          return fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&hourly=temperature_2m,time&forecast_days=1&timezone=auto&temperature_unit=fahrenheit`);
+          return fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&hourly=temperature_2m&forecast_days=1&timezone=auto&temperature_unit=fahrenheit`);
         })
         .then(response => response.json())
-        .then(data => setWeatherData(data))
+        .then(data => {
+          setWeatherData(data);
+        })
         .catch(error => console.error("Error fetching weather data:", error));
     }
   }
@@ -58,9 +62,9 @@ function App() {
       <input type="text" id="city" name="city" />
       <button id="add" onClick={typedCity}>+</button>
 
-      {}
+      {/* Ensure weatherData is available before rendering */}
       {weatherData && weatherData.hourly ? (
-        <ul> {}
+        <ul style={{ listStyleType: "none", padding: 0 }}> {/* Removes bullet points */}
           {weatherData.hourly.temperature_2m.slice(0, 10).map((temp, index) => {
             let utcTime = new Date(weatherData.hourly.time[index] + "Z");
             let localTime = utcTime.toLocaleTimeString([], { 
