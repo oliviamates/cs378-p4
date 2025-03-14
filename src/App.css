@@ -16,20 +16,28 @@ button {
 h2 {
   color: #415a77;
   text-align: center;
+  margin-bottom: 30px;
 }
 
 ul {
   list-style-type: none; 
   padding: 0; 
+  margin-left: 45px;
 }
 
 #austin {
-  margin-left: 50px;
-  margin-right: 25px;
+  margin-left: 55px;
+  margin-right: 30px;
+  margin-bottom: 20px;
 }
 
 #houston {
-  margin-right: 25px; 
+  margin-right: 30px; 
+  margin-bottom: 20px;
+}
+
+#dallas {
+  margin-bottom: 20px;
 }
 
 #city {
