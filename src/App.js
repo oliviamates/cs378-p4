@@ -24,12 +24,23 @@ function App() {
       .catch(error => console.error("Error fetching weather data:", error));
   }
 
+  function typedCity(){
+    //let latitude, longitude; 
+      let res = document.getElementById("city");
+    // fetch('https://geocoding-api.open-meteo.com/v1/search?name=Berlin&count=10&language=en&format=json')
+    //     .then(response => response.json())
+    //   .then(data => setWeatherData(data))
+    //   .catch(error => console.error("Error fetching location data:", error));
+  }
+
   return (
     <div>
       <h2>Weather Forecast</h2>
       <button onClick={() => getWeather("Austin")}>Austin</button>
       <button onClick={() => getWeather("Houston")}>Houston</button>
       <button onClick={() => getWeather("Dallas")}>Dallas</button>
+      <input type="text" id="city" name="city"/>
+      <button onClick={() => typedCity()}>+</button>
 
       {weatherData ? (
         <div>
@@ -38,6 +49,7 @@ function App() {
       ) : (
         <p>Click a city to fetch weather</p>
       )}
+
     </div>
   );
 }
