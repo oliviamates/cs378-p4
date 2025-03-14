@@ -58,7 +58,7 @@ function App() {
           <p>Temperature: {weatherData.hourly.temperature_2m[0]}°F</p>
         </div>
       ) : (
-        <p>Click a city to fetch weather</p>
+        <p>Click a city to load the forecast!</p>
       )}
 
     </div>
