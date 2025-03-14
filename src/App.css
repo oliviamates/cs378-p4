@@ -18,6 +18,9 @@ h2 {
   text-align: center;
 }
 
-
+ul {
+  list-style-type: none; 
+  padding: 0; 
+}
 
 

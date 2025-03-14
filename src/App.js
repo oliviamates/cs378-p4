@@ -53,20 +53,20 @@ function App() {
       <input type="text" id="city" name="city"/>
       <button id = "add" onClick={() => typedCity()}>+</button>
 
-      {weatherData ? (
-        <div>
-          <ul>
-            {weatherData.hourly.temperature_2m.slice(0, 10).map((temp, index) => {
-              let time = new Date(weatherData.hourly.time[index]).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true });
-              return (
-                <li key={index}>{time}: {temp}°F</li>
-              );
-            })}
-          </ul>
-        </div>
-      ) : (
-        <p>Click a city to load the forecast!</p>
-      )}
+      <ul>
+    {weatherData.hourly.temperature_2m.slice(0, 10).map((temp, index) => {
+        let utcTime = new Date(weatherData.hourly.time[index] + "Z"); 
+        let localTime = utcTime.toLocaleTimeString([], { 
+          hour: '2-digit', 
+          minute: '2-digit', 
+          hour12: true 
+        });
+
+      return (
+        <li key={index}>{localTime}: {temp}°F</li>
+      );
+    })}
+</ul>
     </div>
   );
 }
