@@ -50,7 +50,7 @@ function App() {
 
   return (
     <div>
-      <h2>Weather Forecast</h2>
+      <h2 id = "title">Weather Forecast</h2>
       {cities.map((city, index) => (
         <button key={index} onClick={() => getWeather(city)}>{city}</button>
       ))}
