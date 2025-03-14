@@ -55,16 +55,16 @@ function App() {
   return (
     <div>
       <h2>Weather Forecast</h2>
-      <button onClick={() => getWeather("Austin")}>Austin</button>
-      <button onClick={() => getWeather("Houston")}>Houston</button>
-      <button onClick={() => getWeather("Dallas")}>Dallas</button>
+      <button id = "austin" onClick={() => getWeather("Austin")}>Austin</button>
+      <button id = "houston" onClick={() => getWeather("Houston")}>Houston</button>
+      <button id = "dallas" onClick={() => getWeather("Dallas")}>Dallas</button>
       <br />
       <input type="text" id="city" name="city" />
       <button id="add" onClick={typedCity}>+</button>
 
-      {/* Ensure weatherData is available before rendering */}
+
       {weatherData && weatherData.hourly ? (
-        <ul style={{ listStyleType: "none", padding: 0 }}> {/* Removes bullet points */}
+        <ul> 
           {weatherData.hourly.temperature_2m.slice(0, 10).map((temp, index) => {
             let utcTime = new Date(weatherData.hourly.time[index] + "Z");
             let localTime = utcTime.toLocaleTimeString([], { 

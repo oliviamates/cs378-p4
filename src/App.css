@@ -23,4 +23,17 @@ ul {
   padding: 0; 
 }
 
+#austin {
+  margin-left: 50px;
+  margin-right: 25px;
+}
+
+#houston {
+  margin-right: 25px; 
+}
+
+#city {
+  margin-left: 50px;
+  margin-right: 25px;
+}
 
