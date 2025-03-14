@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   const [weatherData, setWeatherData] = useState(null);
+  const [errorMessage, setErrorMessage] = useState("");
 
   function getWeather(city) {
     let latitude, longitude;
@@ -23,6 +24,7 @@ function App() {
       .then(response => response.json())
       .then(data => {
         setWeatherData(data);
+        setErrorMessage("");
       })
       .catch(error => console.error("Error fetching weather data:", error));
   }
@@ -37,7 +39,9 @@ function App() {
         .then(response => response.json())
         .then(data => {
           if (!data.results || data.results.length === 0) {
+            setErrorMessage(`City "${name}" not found.`);
             throw new Error("City not found");
+            
           }
           let latitude = data.results[0].latitude;
           let longitude = data.results[0].longitude;
@@ -47,6 +51,7 @@ function App() {
         .then(response => response.json())
         .then(data => {
           setWeatherData(data);
+          setErrorMessage("")
         })
         .catch(error => console.error("Error fetching weather data:", error));
     }
@@ -61,7 +66,7 @@ function App() {
       <br />
       <input type="text" id="city" name="city" />
       <button id="add" onClick={typedCity}>+</button>
-
+      {errorMessage && <p>{errorMessage}</p>}
 
       {weatherData && weatherData.hourly ? (
         <ul> 
