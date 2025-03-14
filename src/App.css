@@ -9,11 +9,15 @@ body {
 button {
   background-color: #778da9; 
   color: white;
+  padding: 25px;
+
 }
 
 h2 {
   color: #415a77;
   text-align: center;
 }
+
+
 
 
