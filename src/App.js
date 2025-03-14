@@ -56,14 +56,17 @@ function App() {
       {weatherData ? (
         <div>
           <ul>
-            {weatherData.hourly.temperature_2m.slice(0, 10).map((temp, index) => (
-              <li key={index}>Hour {index + 1}: {temp}°F</li>
-            ))}
+            {weatherData.hourly.temperature_2m.slice(0, 10).map((temp, index) => {
+              let time = new Date(weatherData.hourly.time[index]).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true });
+              return (
+                <li key={index}>{time}: {temp}°F</li>
+              );
+            })}
           </ul>
         </div>
-           ) : (
-            <p>Click a city to load the forecast!</p>
-          )}
+      ) : (
+        <p>Click a city to load the forecast!</p>
+      )}
     </div>
   );
 }
