@@ -25,23 +25,22 @@ function App() {
   }
 
   function typedCity(){
-    let latitude, longitude; 
       let name = document.getElementById("city").value;
       if(name === "Austin" || name === "Houston" || name === "Dallas") {
         getWeather(name); 
       }
       else {
-
-      }
-      fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${name}&count=1&language=en&format=json`)
+        fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${name}&count=1&language=en&format=json`)
         .then(response => response.json())
-        .then(data => latitude = data.results[0].latitude, longitude = data.results[0].longitude)
-      .catch(error => console.error("Error fetching location data:", error));
-
-      fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&hourly=temperature_2m&forecast_days=1&timezone=auto&temperature_unit=fahrenheit`)
+        .then(data => {
+          let latitude = data.results[0].latitude; 
+          let longitude = data.results[0].longitude;
+          return fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&hourly=temperature_2m&forecast_days=1&timezone=auto&temperature_unit=fahrenheit`)
+        })
       .then(response => response.json())
       .then(data => setWeatherData(data))
       .catch(error => console.error("Error fetching weather data:", error));
+      }
   }
 
   return (
